@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canımın İçi</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            overflow: hidden;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #ff9a9e);
+        }
+        
+        h1 {
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+        
+        .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .hashtag {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.2rem;
+        }
+        
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            opacity: 0;
+            font-size: 20px;
+            color: #e74c3c;
+            animation: float 4s ease-in infinite;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .response {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container" id="messageContainer">
+        <h1>Canımın içi,</h1>
+        <p>Sana istemeden kırıcı davrandıysam, kalbini incittiysem lütfen beni affet. Niyetim asla seni üzmek değildi. Bazen kelimeler yetersiz kalıyor, bazen duygularımı doğru ifade edemiyorum. Ama bilmeni isterim ki, seni gerçekten çok seviyorum ve sana değer veriyorum.</p>
+        <p>Senin gülüşün, varlığın benim için her şeyden kıymetli. Bu hatamı telafi etmek ve sana kendimi yeniden en güzel şekilde gösterebilmek için elimden geleni yapacağım.</p>
+        <p>Lütfen kalbini bana yeniden aç, çünkü seninle her şey daha güzel @n4rk0t1ks </p>
+        
+        <div class="signature">Sevgilerimle Mert</div>
+        <div class="hashtag">#ŞULEMERTİAFFET</div>
+        
+        <button id="forgiveBtn">Beni Affeder misin?</button>
+    </div>
+    
+    <div class="container hidden" id="responseContainer">
+        <h1>Teşekkür Ederim!</h1>
+        <div class="response" id="responseText"></div>
+        <p>Bana bu şansı verdiğin için çok teşekkür ederim. Senin için her gün daha iyi bir insan olmaya çalışacağım. Bu mutluluğu bana yaşattığın için minnettarım.</p>
+        <div class="signature">Seni çok seven Mertin</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kalp animasyonları oluştur
+            createHearts();
+            
+            // Affet butonuna tıklama olayı
+            document.getElementById('forgiveBtn').addEventListener('click', function() {
+                const messageContainer = document.getElementById('messageContainer');
+                const responseContainer = document.getElementById('responseContainer');
+                const responseText = document.getElementById('responseText');
+                
+                // Rastgele cevap seç
+                const responses = [
+                    "Seni çok seviyorum! 💖",
+                    "Dünyalar benim oldu! 🌟",
+                    "Çok mutlu oldum! 😊",
+                    "Seninle her şey güzel! 💕",
+                    "Teşekkür ederim! 🙏"
+                ];
+                
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                responseText.textContent = randomResponse;
+                
+                // Mesajı gizle ve cevabı göster
+                messageContainer.classList.add('hidden');
+                responseContainer.classList.remove('hidden');
+                
+                // Daha fazla kalp oluştur
+                createHearts(30);
+            });
+            
+            // Kalp oluşturma fonksiyonu
+            function createHearts(count = 15) {
+                const heartsContainer = document.getElementById('hearts');
+                
+                for (let i = 0; i < count; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '❤';
+                    
+                    // Rastgele pozisyon
+                    const left = Math.random() * 100;
+                    const delay = Math.random() * 5;
+                    
+                    heart.style.left = `${left}%`;
+                    heart.style.bottom = '-20px';
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    heartsContainer.appendChild(heart);
+                    
+                    // Kalpleri temizle
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }
+            }
+            
+            // Belirli aralıklarla kalp oluştur
+            setInterval(() => {
+                createHearts(5);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
